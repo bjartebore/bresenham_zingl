@@ -46,51 +46,7 @@ void plotCircle(double xm, double ym, double r, SetPixel setPixel) {
 }
 
 void plotCircleWidth(double xm, double ym, double r, double th, SetPixel setPixel) {
-  plotEllipseRectWidth(xm, ym, xm, ym, th, setPixel);
-}
-
-void plotCircle2(int xm, int ym, int r, SetPixel setPixel) {
-  int x = r;
-  int y = 0; /* II. quadrant from bottom left to top right */
-  int i;
-  int x2;
-  int e2;
-  int err = 2 - 2 * r; /* error of 1.step */
-  r = 1 - err;
-  for (;;) {
-    i = (255 * (err + 2 * (x + y) - 2).abs() / r).round(); /* get blend value of pixel */
-    setPixel((xm + x).toDouble(), (ym - y).toDouble(), i); /*   I. Quadrant */
-    setPixel((xm + y).toDouble(), (ym + x).toDouble(), i); /*  II. Quadrant */
-    setPixel((xm - x).toDouble(), (ym + y).toDouble(), i); /* III. Quadrant */
-    setPixel((xm - y).toDouble(), (ym - x).toDouble(), i); /*  IV. Quadrant */
-    if (x == 0) {
-      break;
-    }
-    e2 = err;
-    x2 = x; /* remember values */
-    if (err > y) {
-      /* x step */
-      i = (255 * (err + 2 * x - 1) / r).round(); /* outward pixel */
-      if (i < 255) {
-        setPixel((xm + x).toDouble(), (ym - y + 1).toDouble(), i);
-        setPixel((xm + y - 1).toDouble(), (ym + x).toDouble(), i);
-        setPixel((xm - x).toDouble(), (ym + y - 1).toDouble(), i);
-        setPixel((xm - y + 1).toDouble(), (ym - x).toDouble(), i);
-      }
-      err -= --x * 2 - 1;
-    }
-    if (e2 <= x2--) {
-      /* y step */
-      i = (255 * (1 - 2 * y - e2) / r).round(); /* inward pixel */
-      if (i < 255) {
-        setPixel((xm + x2).toDouble(), (ym - y).toDouble(), i);
-        setPixel((xm + y).toDouble(), (ym + x2).toDouble(), i);
-        setPixel((xm - x2).toDouble(), (ym + y).toDouble(), i);
-        setPixel((xm - y).toDouble(), (ym - x2).toDouble(), i);
-      }
-      err -= --y * 2 - 1;
-    }
-  }
+  plotEllipseRectWidth(xm - r, ym - r, xm + r, ym + r, th, setPixel);
 }
 
 void plotEllipseRectWidth(double x0, double y0, double x1, double y1, double th, SetPixel setPixel) {

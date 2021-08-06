@@ -1,6 +1,6 @@
 name: bresenham_zingl
 description: Bresenham's alogrithm implementation based on Alois Zingl's implementation
-version: 1.0.0
+version: 1.1.0
 repository: https://github.com/bjartebore/bresenham_zingl
 
 environment:
